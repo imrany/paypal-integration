@@ -63,37 +63,14 @@
         form.addEventListener("submit",async(e)=>{
             try{
                 e.preventDefault()
-                let url =`http://localhost:8000/pay/${e.target.amount.value
+                let url =`/pay/${e.target.amount.value
 }`
-                let response=await fetch(url)
-                const parseRes=await response.json()
-                if(parseRes.msg){
-                    alert(parseRes.msg)
-                }else{
-                    alert(parseRes.error)
-                }
-            }catch(error){
+            window.location.href=url
+           }catch(error){
                 alert(error.message)
             }
         })
-
-// Example using client-side JavaScript in your frontend application
-window.onload = function () {
-  const urlParams = new URLSearchParams(window.location.search);
-  const paymentId = urlParams.get('paymentId');
-  const token = urlParams.get('token');
-  const PayerID = urlParams.get('PayerID');
-
-  if (paymentId && token && PayerID) {
-    // Handle successful payment
-    console.log('Payment completed successfully:', paymentId, token, PayerID);
-    // Redirect or display a success message as needed
-  } else {
-    // Handle payment cancellation or other cases
-    console.log('Payment cancelled or error occurred');
-    // Redirect or display a cancellation message as needed
-  }
-};
   </script>
 </body>
 </html>
+

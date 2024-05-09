@@ -6,7 +6,10 @@ const cors=require('cors')
 
 const app = express();
 app.use(express.json());
-app.use(cors({}))
+app.use(cors({}));
+app.set('view engine','ejs');
+app.use(express.urlencoded({extended:false}));
+
 // Configure PayPal SDK
 paypal.configure({
   mode: 'live', // Use 'sandbox' for testing, 'live' for production
@@ -14,7 +17,7 @@ paypal.configure({
   client_secret: process.env.CLIENT_SECRET,
 });
 
-app.get('/', (req, res) => res.sendFile(__dirname + "/index.html"));
+app.get('/', (req, res) => res.render("index"));
 
 // Set up payment route
 app.get('/pay/:amount', (req, res) => {

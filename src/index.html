@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Support Imran</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+  <style>
+    *{
+        font-family: "Inter";
+    }
+    body{
+        display:flex;
+        flex-direction:column;
+        height:100vh;
+        justify-items:center;
+        align-items:center;
+    }
+    form{
+        display:flex;
+        flex-direction:column;
+        justify-items:center;
+        gap:10px;
+        width:fit;
+        align-items:center;
+    }
+    .inputfield {
+        display:flex;
+        flex-direction:column;
+        justify-items:center;
+        gap:10px;
+    }
+    input{
+        width:300px;
+        padding:10px;
+        border:solid 1px gray;
+        outline:none;
+        border-radius:1px;
+    }
+    .btn{
+        width:100px;
+        padding:10px;
+        cursor:pointer;
+    }
+  </style> 
+</head>
+<body>
+  <h1> Support my work through a paypal contribution </h1>
+  <h4>Any amount is appreciated</h4>
+  <form>
+    <div class="inputfield">
+        <label>Amount</label>
+        <input type="number" name="amount" placeholder="$25" required/>
+    <div>
+        <button class="btn">Contribute</button>
+  </form>
+
+  <script>
+        let form=document.querySelector("form")
+        form.addEventListener("submit",async(e)=>{
+            try{
+                e.preventDefault()
+                let url =`http://localhost:8000/pay`
+                let response=await fetch(url,{
+                    method:"POST",
+                    headers:{
+                        "content-type":"application/json"
+                    },
+                    body:JSON.stringify({
+                        amount:e.target.amount.value
+                    })
+                })
+                const parseRes=await response.json()
+                if(parseRes.msg){
+                    alert(parseRes.msg)
+                }else{
+                    alert(parseRes.error)
+                }
+            }catch(error){
+                alert(error.message)
+            }
+        })
+  </script>
+</body>
+</html>
